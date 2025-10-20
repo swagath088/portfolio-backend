@@ -3,14 +3,15 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
-load_dotenv()  # Load environment variables from .env
+# Load environment variables from .env
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # -------------------------------
 # Secret & Debug
 # -------------------------------
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-default-key")
 DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",") if os.getenv("ALLOWED_HOSTS") else []
@@ -114,7 +115,13 @@ MEDIA_URL = "/media/"
 # -------------------------------
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite dev server
+    "https://portfolio-backend-7uvh.onrender.com",
 ]
+
+# -------------------------------
+# CSRF Trusted Origins
+# -------------------------------
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split(",") if os.getenv("CSRF_TRUSTED_ORIGINS") else []
 
 # -------------------------------
 # REST Framework
