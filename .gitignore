@@ -1,25 +1,15 @@
 # Python
 __pycache__/
-*.py[cod]
-*.sqlite3
 *.pyc
 *.pyo
 *.pyd
-env/
-venv/
+*.sqlite3
 *.env
+*.DS_Store
 
-# Django
+# Virtual environment
+venv/
+.env
+
+# Media
 media/
-*.log
-*.pot
-*.pyc
-*.db
-
-# IDEs
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-Thumbs.db
