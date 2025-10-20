@@ -3,7 +3,9 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
-# Load environment variables from .env
+# -------------------------------
+# Load environment variables
+# -------------------------------
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,12 +30,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    # Third-party apps
     "rest_framework",
     "rest_framework.authtoken",
 
     "cloudinary",
     "cloudinary_storage",
 
+    # Your apps
     "mainapp",
 ]
 
@@ -51,7 +55,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# -------------------------------
+# Root URLs and WSGI
+# -------------------------------
 ROOT_URLCONF = "portfolio_backend.urls"
+WSGI_APPLICATION = "portfolio_backend.wsgi.application"
 
 # -------------------------------
 # Templates
@@ -59,7 +67,7 @@ ROOT_URLCONF = "portfolio_backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [],  # add template dirs if needed
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -71,10 +79,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "portfolio_backend.wsgi.application"
-
 # -------------------------------
-# Database (Render Postgres)
+# Database (Postgres on Render)
 # -------------------------------
 DATABASES = {
     "default": dj_database_url.config(
@@ -83,7 +89,7 @@ DATABASES = {
 }
 
 # -------------------------------
-# Auth Password Validators
+# Password validation
 # -------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -101,27 +107,33 @@ USE_I18N = True
 USE_TZ = True
 
 # -------------------------------
-# Static & Media
+# Static files
 # -------------------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-# Use Cloudinary for media
+# -------------------------------
+# Media files (Cloudinary)
+# -------------------------------
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 MEDIA_URL = "/media/"
 
 # -------------------------------
-# CORS
+# CORS & CSRF
 # -------------------------------
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vite dev server
-    "https://portfolio-backend-7uvh.onrender.com",
+    "http://localhost:5173",  # local Vite dev
+    "https://portfolio-frontend-liard-one.vercel.app",
+    "https://portfolio-frontend-git-main-swagaths-projects.vercel.app",
+    "https://portfolio-frontend-pl1ixxmdx-swagaths-projects.vercel.app",
 ]
 
-# -------------------------------
-# CSRF Trusted Origins
-# -------------------------------
-CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split(",") if os.getenv("CSRF_TRUSTED_ORIGINS") else []
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "https://portfolio-frontend-liard-one.vercel.app",
+    "https://portfolio-frontend-git-main-swagaths-projects.vercel.app",
+    "https://portfolio-frontend-pl1ixxmdx-swagaths-projects.vercel.app",
+]
 
 # -------------------------------
 # REST Framework
@@ -136,10 +148,15 @@ REST_FRAMEWORK = {
 }
 
 # -------------------------------
-# Cloudinary config (from .env)
+# Cloudinary
 # -------------------------------
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
     "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
     "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
 }
+
+# -------------------------------
+# Default primary key
+# -------------------------------
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
