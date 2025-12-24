@@ -7,16 +7,14 @@ from django.contrib.auth.models import User
 
 from cloudinary.models import CloudinaryField
 
-# ------------------------------
-# Project Model
-# ------------------------------
+
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     tech_stack = models.TextField()
     github_link = models.URLField()
     live_link = models.URLField(blank=True, null=True)
-    image = CloudinaryField('image', blank=True, null=True)  # Direct Cloudinary upload
+    image = CloudinaryField('image', blank=True, null=True)  
 
     def __str__(self):
         return self.title
@@ -28,7 +26,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = models.TextField()
-    image = CloudinaryField('image', blank=True, null=True)  # Direct Cloudinary upload
+    image = CloudinaryField('image', blank=True, null=True) 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
